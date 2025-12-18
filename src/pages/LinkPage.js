@@ -1,6 +1,9 @@
 import React from "react";
 import { SocialIcon } from "react-social-icons";
  import profilePic from "../assets/emblem.png";
+ import AdComponent from "../components/AdComponent";
+ import { useTranslation } from "react-i18next";
+ import LanguageToggle from "../components/LanguageToggle/LanguageToggle";
 
 export default function LinkPage() {
   const links = [
@@ -10,7 +13,7 @@ export default function LinkPage() {
     { label: "Website", url: "https://thespychess.com/" },
     { label: "Facebook", url: "https://www.facebook.com/share/1C1n7sHWyR/" },
     { label: "X", url: "https://x.com/" },
-    { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.mnash.flutter_spy_chess&hl=en_US" },
+    { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.mnash.spy_chess" },
     { label: "App Store", url: "https://apps.apple.com/us/app/spy-chess-genesis/id6670184900" },
   ];
 
@@ -25,6 +28,8 @@ export default function LinkPage() {
     el.style.transform = "scale(1)";
     el.style.opacity = "1";
   };
+
+    const { t, i18n } = useTranslation();
 
   return (
     <div
@@ -48,8 +53,13 @@ export default function LinkPage() {
           borderRadius: "18px",
           boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
           textAlign: "center",
+          position: "relative",
         }}
       >
+        <div style={{ position: "absolute", top: 14, right: 16 }}>
+          <LanguageToggle />
+        </div>
+        <br/>
 
 
         <img
@@ -64,7 +74,7 @@ export default function LinkPage() {
           }}
         />
 
-        <h1 style={{ fontSize: "28px", marginBottom: "20px" }}>Spy Chess</h1>
+        <h1 style={{ fontSize: "28px", marginBottom: "20px" }}>{t("main-title")}</h1>
 
         {links.map((link) => {
           const isStore =
@@ -108,6 +118,9 @@ export default function LinkPage() {
             </a>
           );
         })}
+
+        <br/>
+        <AdComponent />
       </div>
     </div>
   );
