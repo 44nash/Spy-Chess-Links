@@ -14,6 +14,26 @@ i18n.use(initReactI18next).init({
         "main-title": "Ajedrez Espía",
       },
     },
+    pt: {
+      translation: {
+        "main-title": "Xadrez Espião",
+      },
+    },
+    fr: {
+      translation: {
+        "main-title": "Échecs Espion",
+      },
+    },
+    ru: {
+      translation: {
+        "main-title": "Шпионские Шахматы",
+      },
+    },
+    de: {
+      translation: {
+        "main-title": "Spion Schach",
+      },
+    },
   },
   lng: "en",
   fallbackLng: "en",

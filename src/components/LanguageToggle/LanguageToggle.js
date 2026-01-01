@@ -8,7 +8,13 @@ function LanguageToggle() {
   const getLang = () => {
     const stored = localStorage.getItem("lang");
     const fromI18n = i18n.language || stored || "en";
-    return fromI18n.startsWith("es") ? "es" : "en";
+    // Support multiple languages
+    if (fromI18n.startsWith("es")) return "es";
+    if (fromI18n.startsWith("pt")) return "pt";
+    if (fromI18n.startsWith("fr")) return "fr";
+    if (fromI18n.startsWith("ru")) return "ru";
+    if (fromI18n.startsWith("de")) return "de";
+    return "en";
   };
 
   const [lang, setLang] = React.useState(getLang());
@@ -32,6 +38,10 @@ function LanguageToggle() {
       >
         <option value="en">🇺🇸 English (EN)</option>
         <option value="es">🇪🇸 Español (ES)</option>
+        <option value="pt">🇵🇹 Português (PT)</option>
+        <option value="fr">🇫🇷 Français (FR)</option>
+        <option value="ru">🇷🇺 Русский (RU)</option>
+        <option value="de">🇩🇪 Deutsch (DE)</option>
       </select>
     </div>
   );
