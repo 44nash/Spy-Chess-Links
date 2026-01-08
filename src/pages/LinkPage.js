@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SocialIcon } from "react-social-icons";
  import profilePic from "../assets/emblem.png";
  import AdComponent from "../components/AdComponent";
@@ -6,6 +6,7 @@ import { SocialIcon } from "react-social-icons";
  import LanguageToggle from "../components/LanguageToggle/LanguageToggle";
 
 export default function LinkPage() {
+  const [isRulesDialogOpen, setIsRulesDialogOpen] = useState(false);
   const links = [
     { label: "Instagram", url: "https://www.instagram.com/spy.chess?igsh=MTY0N2x5N3AzM3pwNA==" },
     { label: "YouTube", url: "https://www.youtube.com/@SpyChess-u4t" },
@@ -121,7 +122,87 @@ export default function LinkPage() {
 
         <br/>
         <AdComponent />
+
+        <button
+          onClick={() => setIsRulesDialogOpen(true)}
+          style={{
+            marginTop: "20px",
+            padding: "12px 24px",
+            background: "linear-gradient(135deg, #667eea, #764ba2)",
+            color: "white",
+            border: "none",
+            borderRadius: "12px",
+            fontSize: "16px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            transition: "transform 0.15s",
+          }}
+          onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+          onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+        >
+          Rules
+        </button>
       </div>
+
+      {isRulesDialogOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+          onClick={() => setIsRulesDialogOpen(false)}
+        >
+          <div
+            style={{
+              background: "white",
+              borderRadius: "18px",
+              padding: "30px",
+              maxWidth: "500px",
+              maxHeight: "80vh",
+              overflow: "auto",
+              width: "90%",
+              boxShadow: "0 10px 40px rgba(0, 0, 0, 0.3)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 style={{ marginTop: 0, marginBottom: "20px", textAlign: "center" }}>
+              Spy Chess Rules
+            </h2>
+            <ol style={{ textAlign: "left", lineHeight: "1.8", paddingLeft: "20px" }}>
+              <li>Each player will pick 3 pieces of the opposite color, that is not the king. These are your spy's</li>
+              <li>The piece you reveal turns into your color. You now control that piece for the rest of the game.</li>
+              <li>It is important to remember that a reveal counts as a move. Use them wisely.</li>
+              <li>Black may reveal after their 3rd turn.</li>
+              <li>White may reveal after their 4th turn.</li>
+              <li>All other Chess rules still apply.</li>
+            </ol>
+            <button
+              onClick={() => setIsRulesDialogOpen(false)}
+              style={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                background: "linear-gradient(135deg, #667eea, #764ba2)",
+                color: "white",
+                border: "none",
+                borderRadius: "8px",
+                fontSize: "16px",
+                cursor: "pointer",
+                width: "100%",
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
