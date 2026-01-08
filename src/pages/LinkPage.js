@@ -140,7 +140,7 @@ export default function LinkPage() {
           onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
           onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
         >
-          Rules
+          {t("rules")}
         </button>
       </div>
 
@@ -177,12 +177,12 @@ export default function LinkPage() {
               Spy Chess Rules
             </h2>
             <ol style={{ textAlign: "left", lineHeight: "1.8", paddingLeft: "20px" }}>
-              <li>Each player will pick 3 pieces of the opposite color, that is not the king. These are your spy's</li>
-              <li>The piece you reveal turns into your color. You now control that piece for the rest of the game.</li>
-              <li>It is important to remember that a reveal counts as a move. Use them wisely.</li>
-              <li>Black may reveal after their 3rd turn.</li>
-              <li>White may reveal after their 4th turn.</li>
-              <li>All other Chess rules still apply.</li>
+              <li>{t("rules_1")}</li>
+              <li>{t("rules_2")}</li>
+              <li>{t("rules_3")}</li>
+              <li>{t("rules_4")}</li>
+              <li>{t("rules_5")}</li>
+              <li>{t("rules_6")}</li>
             </ol>
             <button
               onClick={() => setIsRulesDialogOpen(false)}
