@@ -174,7 +174,7 @@ export default function LinkPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 style={{ marginTop: 0, marginBottom: "20px", textAlign: "center" }}>
-              Spy Chess Rules
+              {t("rules-title")}
             </h2>
             <ol style={{ textAlign: "left", lineHeight: "1.8", paddingLeft: "20px" }}>
               <li>{t("rules_1")}</li>
