@@ -241,6 +241,7 @@ export default function LinkPage() {
                   </div>
                 </div>
               </li>
+              <li>{t("rules_7")}</li>
             </ol>
 
             <h3 style={{ marginTop: "20px", marginBottom: "10px", fontSize: "16px" }}>
