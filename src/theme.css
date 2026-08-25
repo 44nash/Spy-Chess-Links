@@ -131,6 +131,7 @@
   overflow: hidden;
 }
 .sc-dialog-scroll {
+  box-sizing: border-box;
   max-height: 80vh;
   overflow: auto;
   padding: 30px;
