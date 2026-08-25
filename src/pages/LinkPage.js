@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { SocialIcon } from "react-social-icons";
  import profilePic from "../assets/emblem.png";
  import AdComponent from "../components/AdComponent";
  import { useTranslation } from "react-i18next";
  import LanguageToggle from "../components/LanguageToggle/LanguageToggle";
+ import ScrollHint from "../components/ScrollHint";
 
 export default function LinkPage() {
   const [isRulesDialogOpen, setIsRulesDialogOpen] = useState(false);
+  const dialogScrollRef = useRef(null);
   const links = [
     { label: "App Store", url: "https://apps.apple.com/us/app/spy-chess-genesis/id6670184900" },
     { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.mnash.spy_chess" },
     { label: "TikTok", url: "https://tiktok.com/@spychess0" },
     { label: "Instagram", url: "https://www.instagram.com/spy.chess?igsh=MTY0N2x5N3AzM3pwNA==" },
-    { label: "YouTube", url: "https://www.youtube.com/@SpyChess-u4t" },
+    { label: "YouTube", url: "https://www.youtube.com/watch?v=f0kpi1GPmZE" },
     { label: "Facebook", url: "https://www.facebook.com/share/1C1n7sHWyR/" },
     { label: "Website", url: "https://thespychess.com/" },
     { label: "X", url: "https://x.com/" },
@@ -55,40 +57,18 @@ export default function LinkPage() {
   };
 
   const renderTurnRow = (icon, text, note, topMargin) => (
-    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: topMargin }}>
+    <div className="sc-note-row" style={{ marginTop: topMargin }}>
       <span>{icon}</span>
-      <span>
+      <span className="sc-note-text">
         {renderRule(text)}{" "}
-        <span style={{ color: "#777", fontSize: "12px" }}>({note})</span>
+        <span style={{ color: "var(--sc-text-secondary)", fontSize: "12px" }}>({note})</span>
       </span>
     </div>
   );
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        paddingTop: "40px",
-        background: "#f4f4f4",
-        fontFamily: "Arial, sans-serif",
-        backgroundImage: "linear-gradient(135deg, #667eea, #764ba2)",
-      }}
-    >
-      <div
-        style={{
-          width: "90%",
-          maxWidth: "420px",
-          background: "#fff",
-          padding: "30px",
-          borderRadius: "18px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-          textAlign: "center",
-          position: "relative",
-        }}
-      >
+    <div className="sc-page">
+      <div className="sc-panel-card">
         <div style={{ position: "absolute", top: 14, right: 16 }}>
           <LanguageToggle />
         </div>
@@ -107,22 +87,12 @@ export default function LinkPage() {
           }}
         />
 
-        <h1 style={{ fontSize: "28px", marginTop: 0, marginBottom: "20px" }}>{t("main-title")}</h1>
+        <h1 className="sc-title">{t("main-title")}</h1>
 
         <button
+          className="sc-btn-gold"
           onClick={() => setIsRulesDialogOpen(true)}
-          style={{
-            marginBottom: "20px",
-            padding: "12px 24px",
-            background: "linear-gradient(135deg, #667eea, #764ba2)",
-            color: "white",
-            border: "none",
-            borderRadius: "12px",
-            fontSize: "16px",
-            fontWeight: "bold",
-            cursor: "pointer",
-            transition: "transform 0.15s",
-          }}
+          style={{ marginBottom: "20px" }}
           onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
           onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
         >
@@ -138,39 +108,28 @@ export default function LinkPage() {
               key={link.label}
               href={link.url}
               className={
-                link.label === "App Store"
+                "sc-link-row " +
+                (link.label === "App Store"
                   ? "store-shake"
                   : link.label === "Google Play"
                   ? "store-shake store-shake-delay"
-                  : undefined
+                  : "")
               }
               onMouseOver={handleMouseOver}
               onMouseOut={handleMouseOut}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "10px",
-                textDecoration: "none",
-                background: "black",
-                color: "white",
-                padding: "14px 20px",
-                borderRadius: "12px",
-                margin: "12px 0",
-                fontSize: "18px",
-                transition: "transform 0.15s, opacity 0.15s",
-              }}
             >
               {isStore ? (
-                <img
-                  src={
-                    link.label === "Google Play"
-                      ? "https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                      : "https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                  }
-                  alt={link.label}
-                  style={{ height: "40px" }}
-                />
+                <span className="sc-store-badge-wrap">
+                  <img
+                    src={
+                      link.label === "Google Play"
+                        ? "https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                        : "https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                    }
+                    alt={link.label}
+                    style={{ height: "40px" }}
+                  />
+                </span>
               ) : (
                 <SocialIcon url={link.url} style={{ height: 30, width: 30 }} />
               )}
@@ -183,105 +142,77 @@ export default function LinkPage() {
         <AdComponent />
       </div>
 
+      <ScrollHint variant="page" />
+
       {isRulesDialogOpen && (
         <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1000,
-          }}
+          className="sc-dialog-overlay"
           onClick={() => setIsRulesDialogOpen(false)}
         >
-          <div
-            style={{
-              background: "white",
-              borderRadius: "18px",
-              padding: "30px",
-              maxWidth: "500px",
-              maxHeight: "80vh",
-              overflow: "auto",
-              width: "90%",
-              boxShadow: "0 10px 40px rgba(0, 0, 0, 0.3)",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 style={{ marginTop: 0, marginBottom: "20px", textAlign: "center" }}>
-              {t("rules-title")}
-            </h2>
-            <ol style={{ textAlign: "left", lineHeight: "1.8", paddingLeft: "20px" }}>
-              <li>{renderRule(t("rules_1"))}</li>
-              <li>{renderRule(t("rules_2"))}</li>
-              <li>{renderRule(t("rules_3"))}</li>
-              <li>
-                {renderRule(t("rules_4"))}
-                <div
-                  style={{
-                    marginTop: "10px",
-                    padding: "12px 14px",
-                    background: "#f4f4fb",
-                    borderRadius: "10px",
-                    fontSize: "14px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
+          <div className="sc-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="sc-dialog-scroll" ref={dialogScrollRef}>
+              <h2 className="sc-dialog-title">
+                {t("rules-title")}
+              </h2>
+
+              {[t("rules_1"), t("rules_2"), t("rules_3")].map((rule, idx) => (
+                <div className="sc-rule-item" key={idx}>
+                  <span className="sc-rule-number">{idx + 1}</span>
+                  <span className="sc-rule-body">{renderRule(rule)}</span>
+                </div>
+              ))}
+
+              <div className="sc-rule-item">
+                <span className="sc-rule-number">4</span>
+                <div style={{ flex: 1 }}>
+                  <span className="sc-rule-body">{renderRule(t("rules_4"))}</span>
+                  <div className="sc-tip">
                     <span>💡</span>
-                    <span>{t("rules_5")}</span>
+                    <span className="sc-tip-text">{t("rules_5")}</span>
                   </div>
                   <div style={{ marginTop: "10px" }}>
                     {renderTurnRow("⚫", t("rules-turn-black"), t("rules-turn-black-note"), 0)}
                     {renderTurnRow("⚪", t("rules-turn-white"), t("rules-turn-white-note"), "6px")}
                   </div>
                 </div>
-              </li>
-              <li>{t("rules_7")}</li>
-            </ol>
+              </div>
 
-            <h3 style={{ marginTop: "20px", marginBottom: "10px", fontSize: "16px" }}>
-              {t("rules-labels-title")}
-            </h3>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
-              <tbody>
-                {pieceLabels.map((row) => (
-                  <tr key={row.label} style={{ borderBottom: "1px solid #eee" }}>
-                    <td style={{ padding: "6px 4px", textAlign: "left" }}>
-                      {row.excluded ? "❌" : "✅"} <strong>{row.label}</strong> – {t(row.pieceKey)}
-                      {row.excluded ? "*" : ""} ({row.square})
-                    </td>
-                    <td style={{ padding: "6px 4px", textAlign: "left" }}>
-                      ✅ <strong>{row.pawnLabel}</strong> – {t("piece-pawn")} ({row.pawnSquare})
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <p style={{ fontSize: "12px", color: "#777", marginTop: "6px" }}>
-              * {t("piece-king")} ({t("rules-king-excluded")})
-            </p>
+              <div className="sc-rule-item">
+                <span className="sc-rule-number">5</span>
+                <span className="sc-rule-body">{t("rules_7")}</span>
+              </div>
 
-            <button
-              onClick={() => setIsRulesDialogOpen(false)}
-              style={{
-                marginTop: "20px",
-                padding: "10px 20px",
-                background: "linear-gradient(135deg, #667eea, #764ba2)",
-                color: "white",
-                border: "none",
-                borderRadius: "8px",
-                fontSize: "16px",
-                cursor: "pointer",
-                width: "100%",
-              }}
-            >
-              Close
-            </button>
+              <h3 className="sc-table-title">
+                {t("rules-labels-title")}
+              </h3>
+              <table className="sc-table">
+                <tbody>
+                  {pieceLabels.map((row) => (
+                    <tr key={row.label}>
+                      <td>
+                        {row.excluded ? "❌" : "✅"} <strong>{row.label}</strong> – {t(row.pieceKey)}
+                        {row.excluded ? "*" : ""} ({row.square})
+                      </td>
+                      <td>
+                        ✅ <strong>{row.pawnLabel}</strong> – {t("piece-pawn")} ({row.pawnSquare})
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="sc-table-footnote">
+                * {t("piece-king")} ({t("rules-king-excluded")})
+              </p>
+
+              <button
+                className="sc-btn-gold"
+                onClick={() => setIsRulesDialogOpen(false)}
+                style={{ marginTop: "20px", width: "100%" }}
+              >
+                Close
+              </button>
+            </div>
+            <ScrollHint variant="dialog" containerRef={dialogScrollRef} />
           </div>
         </div>
       )}

@@ -1,0 +1,266 @@
+/* ==========================================================================
+   Spy Chess — Brand Theme
+   Adapted from the "Spy Chess Rules" style template for use on this
+   responsive web page (source template targets fixed 1920x1080 frames).
+   ========================================================================== */
+
+:root {
+  --sc-primary-dark:    #1B1B2F;
+  --sc-primary-mid:     #162447;
+  --sc-accent:          #1F4068;
+  --sc-accent-light:    #1A6FB5;
+  --sc-gold:            #E2B714;
+  --sc-gold-light:      #F5D565;
+  --sc-surface:         #1E1E2E;
+  --sc-surface-light:   #2A2A3D;
+  --sc-text-primary:    #F0F0F0;
+  --sc-text-secondary:  #B0B0C0;
+  --sc-danger:          #E53935;
+  --sc-success:         #4CAF50;
+
+  --sc-panel-grad-start: #14141d;
+  --sc-panel-grad-end:   #0F1B33;
+
+  --sc-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---- Page background ---- */
+.sc-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  background: linear-gradient(135deg, var(--sc-primary-dark) 0%, var(--sc-primary-mid) 55%, var(--sc-accent) 100%);
+  font-family: var(--sc-font);
+  color: var(--sc-text-primary);
+}
+
+/* ---- Main glowing panel card ---- */
+.sc-panel-card {
+  width: 90%;
+  max-width: 420px;
+  background: linear-gradient(160deg, var(--sc-panel-grad-start) 0%, var(--sc-panel-grad-end) 100%);
+  border: 1.5px solid rgba(226, 183, 20, 0.32);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.25),
+    0 18px 40px rgba(0, 0, 0, 0.35),
+    0 0 46px rgba(226, 183, 20, 0.08);
+  border-radius: 18px;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+}
+
+/* ---- Title / subtitle ---- */
+.sc-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--sc-text-primary);
+  margin-top: 0;
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
+}
+.sc-title-accent { color: var(--sc-gold); }
+
+/* ---- Gold gradient button (Rules button, dialog close) ---- */
+.sc-btn-gold {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--sc-gold), var(--sc-gold-light));
+  color: var(--sc-primary-dark);
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+/* ---- Link / social rows ---- */
+.sc-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  background: var(--sc-surface-light);
+  border: 1.5px solid transparent;
+  color: var(--sc-text-primary);
+  padding: 14px 20px;
+  border-radius: 12px;
+  margin: 12px 0;
+  font-size: 18px;
+  transition: transform 0.15s, opacity 0.15s, border-color 0.15s;
+}
+.sc-link-row:hover {
+  border-color: var(--sc-gold);
+}
+
+/* Store badges keep their official artwork legible on a dark card */
+.sc-store-badge-wrap {
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---- Rules dialog ---- */
+.sc-dialog-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.sc-dialog {
+  background: linear-gradient(160deg, var(--sc-panel-grad-start) 0%, var(--sc-panel-grad-end) 100%);
+  border: 1.5px solid rgba(226, 183, 20, 0.32);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.25),
+    0 18px 40px rgba(0, 0, 0, 0.45),
+    0 0 46px rgba(226, 183, 20, 0.1);
+  border-radius: 18px;
+  max-width: 500px;
+  max-height: 80vh;
+  width: 90%;
+  color: var(--sc-text-primary);
+  position: relative;
+  overflow: hidden;
+}
+.sc-dialog-scroll {
+  box-sizing: border-box;
+  max-height: 80vh;
+  overflow: auto;
+  padding: 30px;
+}
+.sc-dialog-title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--sc-gold-light);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+/* ---- Numbered rule item ---- */
+.sc-rule-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--sc-surface-light);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+.sc-rule-number {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sc-gold), var(--sc-gold-light));
+  color: var(--sc-primary-dark);
+  font-weight: 800;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sc-rule-body { font-size: 15px; line-height: 1.5; color: var(--sc-text-primary); }
+.sc-rule-body strong { color: var(--sc-gold-light); }
+
+/* ---- Tip callout ---- */
+.sc-tip {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: rgba(226, 183, 20, 0.12);
+  border: 1px solid rgba(226, 183, 20, 0.4);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.sc-tip-text { color: var(--sc-gold-light); font-weight: 600; line-height: 1.4; }
+
+.sc-note-row { display: flex; gap: 10px; align-items: center; }
+.sc-note-text { font-size: 14px; color: var(--sc-text-secondary); }
+.sc-note-text strong { color: var(--sc-text-primary); font-weight: 600; }
+
+/* ---- Piece label table ---- */
+.sc-table-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--sc-gold-light);
+  font-weight: 700;
+}
+.sc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.sc-table tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.sc-table td {
+  padding: 8px 4px;
+  text-align: left;
+  color: var(--sc-text-primary);
+}
+.sc-table td strong { color: var(--sc-gold-light); }
+.sc-table-footnote {
+  font-size: 12px;
+  color: var(--sc-text-secondary);
+  margin-top: 6px;
+}
+
+/* ---- Links (always set — a viewer-added link otherwise renders browser-default blue) ---- */
+.sc-page a { color: var(--sc-gold-light); }
+.sc-page a:hover { color: var(--sc-gold); }
+
+/* ---- Scroll indicator (bouncing chevron, shown while there's more below) ---- */
+.sc-scroll-hint {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+}
+.sc-scroll-hint--page {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 500;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(226, 183, 20, 0.16);
+  border: 1px solid rgba(226, 183, 20, 0.4);
+  backdrop-filter: blur(2px);
+  align-items: center;
+}
+.sc-scroll-hint--dialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 52px;
+  padding-bottom: 8px;
+  background: linear-gradient(to top, var(--sc-panel-grad-end) 10%, transparent 100%);
+}
+.sc-scroll-chevron {
+  color: var(--sc-gold-light);
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 800;
+  animation: sc-bounce 1.4s ease-in-out infinite;
+}
+
+@keyframes sc-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-scroll-chevron { animation: none; }
+}
