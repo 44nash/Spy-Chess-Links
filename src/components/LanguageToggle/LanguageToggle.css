@@ -8,8 +8,9 @@
   appearance: none;
   padding: 6px 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #fff;
+  border: 1px solid rgba(226, 183, 20, 0.4);
+  background: var(--sc-surface-light, #2A2A3D);
+  color: var(--sc-text-primary, #F0F0F0);
   font-weight: 500;
   cursor: pointer;
   min-width: 140px;
@@ -17,7 +18,7 @@
 
 .language-select:focus {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.12);
+  box-shadow: 0 0 0 4px rgba(226, 183, 20, 0.2);
 }
 
 /* Accessible hide for label */
